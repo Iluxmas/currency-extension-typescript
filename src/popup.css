@@ -1,0 +1,117 @@
+body {
+  width: 20rem;
+}
+h1 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: 8px;
+}
+.extension__container {
+  max-width: 340px;
+  display: flex;
+  flex-direction: column;
+}
+#pairs__list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#btn__update {
+  width: 30%;
+  margin: 6px auto 10px;
+}
+
+#button__add {
+  margin: 0 auto;
+}
+
+#button__add,
+#btn__update {
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.horizontal__line {
+  width: 100%;
+  height: 1px;
+  background-color: #420168fd;
+  margin: 8px 0;
+}
+.form__container {
+  margin-bottom: 10px;
+}
+.select__container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.input__label {
+  width: 20%;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 14px;
+}
+#source__select,
+#target__select {
+  width: 76%;
+}
+#currency__select {
+  width: 100%;
+}
+
+.pair {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 0 auto;
+}
+
+.source__amount {
+  width: 60px;
+  text-align: end;
+}
+
+.source__amount::-webkit-outer-spin-button,
+.source__amount::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.btn_ {
+  width: 18px;
+  height: 18px;
+  background-size: 90%;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 3px;
+  border: 1px solid #ccc;
+}
+button:hover {
+  cursor: pointer;
+  background-color: #ddd;
+}
+.curr__code {
+  display: inline-block;
+  font-weight: 600;
+  font-size: 14px;
+  width: 30px;
+}
+.result__value {
+  padding: 2px;
+  text-align: end;
+  line-height: 16px;
+  width: 60px;
+  border: 1px solid #ddd;
+}
+.switch__code {
+  margin-left: 6px;
+  background-image: url('./images/rotate.png');
+}
+.delete__code {
+  background-image: url('./images/icons8-close-30.png');
+}
