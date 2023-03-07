@@ -38,5 +38,8 @@ module.exports = {
   }), new MiniCssExtractPlugin({
     filename: "[name].[contenthash].css",
   }),
-  ]
+  ],
+  resolve: {
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+  },
 };

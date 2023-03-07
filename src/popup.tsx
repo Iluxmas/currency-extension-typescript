@@ -1,14 +1,33 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, FC, ReactElement } from 'react';
 import ReactDOM from 'react-dom/client';
-import PairForm from './components/pairForm.tsx';
-import PairsList from './components/pairsList.tsx';
+import { PairForm } from './components/pairForm';
+import { PairsList } from './components/pairsList';
 import ApiService from './utils/api';
 import './popup.css';
 
-function Popup() {
-  const [codes, setCodes] = useState(null);
-  const [pairs, setPairs] = useState(null);
-  const [ratios, setRatios] = useState(null);
+type Codes = {
+  [key: string]: string
+};
+
+type Pairs = string[][];
+
+type Ratio = {
+  [key: string]: {
+    base: string
+    date: string
+    rates: { 
+      [key: string]: number
+    }
+    success: boolean
+    timestamp: number
+  }
+};
+
+
+const Popup: FC = ():ReactElement => {
+  const [codes, setCodes] = useState<Codes>({});
+  const [pairs, setPairs] = useState<Pairs|[]>([]);
+  const [ratios, setRatios] = useState<Ratio[]>([]);
 
   // get currency codes
   useEffect(() => {
@@ -52,9 +71,8 @@ function Popup() {
       .catch((err) => console.log(err));
   }, []);
 
-  useEffect(() => {}, [pairs]);
 
-  function handleAddPair(src: string, trgt:string) {
+  function handleAddPair(src: string, trgt:string): void {
     let newPairsData;
     if (pairs) {
       newPairsData = [...pairs, [src, trgt]];
@@ -71,7 +89,7 @@ function Popup() {
       .catch((err) => console.log(err));
   }
 
-  function getNewRate(src: string) {
+  function getNewRate(src: string): void {
     if (!ratios || !ratios.some((item) => item[src] !== undefined)) {
       ApiService.getResource(`/latest?base=${src}`)
         .then((res) => res.json())
@@ -89,7 +107,7 @@ function Popup() {
     }
   }
 
-  function handleDeletePair(src, trgt) {
+  function handleDeletePair(src: string, trgt: string): void {
     if (pairs) {
       const newPairs = pairs.filter((item) => !(item[0] === src && item[1] === trgt));
       setPairs(newPairs);
@@ -105,5 +123,5 @@ function Popup() {
   );
 }
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root')!);
 root.render(<Popup />);

@@ -1,4 +1,5 @@
-import Pair from './pair.js';
+import React, {ReactElement, FC} from 'react'
+import {Pair} from './pair';
 
 type PairListProps = {
   rates: {
@@ -12,33 +13,32 @@ type PairListProps = {
       timestamp: number
     }
   }[],
-  pairsData: [string,string][],
+  pairsData: string[][],
   onDelete: (arg1: string, arg2: string) => void
 }
 
-export default function PairsList({ rates, pairsData, onDelete }: PairListProps) {
-
-  
+const PairsList: FC<PairListProps> = ({ rates, pairsData, onDelete }): ReactElement => {
 
   return (
     <div>
       <h1>Existing pairs</h1>
       <ul id='pairs__list'>
-        {!!pairsData &&
+        {!!pairsData.length &&
           pairsData.map(([src, trgt]) => {
-            let ratio = 0
-            if (rates) ratio = rates.find((item) => !!item[src])[src]
-            
+  
+                  
             return (<Pair
               source={src}
               target={trgt}
               key={src + trgt}
-              rate={ratio}
+              rates={rates}
               onDelete={onDelete}
-            ></Pair>
-          )})}
+            />)
+          })}
       </ul>
       <button id='btn__update'>Update rates</button>
     </div>
   );
 }
+
+export {PairsList};

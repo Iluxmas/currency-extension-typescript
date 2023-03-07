@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, ReactElement, FC } from 'react';
 
 type PairFormProps = {
   codes: {
@@ -7,15 +7,16 @@ type PairFormProps = {
   onAdd: (arg1: string, arg2: string) => void
 }
 
-export default function PairForm({ codes, onAdd }: PairFormProps) {
+const PairForm: FC<PairFormProps> = ({ codes, onAdd }): ReactElement => {
+
   const [source, setSource] = useState('');
   const [target, setTarget] = useState('');
   const [data, setData] = useState([['', '']]);
 
   useEffect(() => {
-    if (codes) {
-      let entries = Object.entries(codes);
-
+    let entries = Object.entries(codes);
+    
+    if (entries.length) {
       setData(entries);
       setSource(entries[0][0]);
       setTarget(entries[0][0]);
@@ -61,3 +62,5 @@ export default function PairForm({ codes, onAdd }: PairFormProps) {
     </div>
   );
 }
+
+export {PairForm} ;
