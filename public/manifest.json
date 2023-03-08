@@ -1,18 +1,36 @@
 {
   "manifest_version": 3,
-  "name": "Currency Extensions",
+  "name": "Currency Extensions Typescript",
   "description": "Exchange rates",
   "version": "1.0",
   "action": {
-    "default_popup": "popup.html"
+    "default_title": "Action Button"
   },
   "permissions": [
-    "storage"
+    "storage",
+    "tabs",
+    "activeTab",
+    "scripting"
   ], 
   "icons": {
-    "16": "images/rates_16.png",
-    "32": "images/rates_32.png",
-    "48": "images/rates_48.png",
-    "128": "images/rates_128.png"
-  }
+    "48": "images/typescript-48.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["content.css"],
+      "run_at": "document_end"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [   "popup.html" ],
+      "matches": [ "<all_urls>" ]
+    }
+  
+]
 }

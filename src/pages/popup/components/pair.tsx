@@ -23,6 +23,7 @@ const Pair: FC<PairProps> = ({ source, target, rates, onDelete }): ReactElement 
   const [ratio, setRatio] = useState(0)
 
   useEffect(() => {
+    console.log(rates);
     const rate = rates.find(item => !!item[source])
     if (rate) {
       setRatio(rate[source].rates[target])

@@ -1,4 +1,22 @@
-import apikey from './key.js'
+import { apikey } from './apikey.js'
+
+type Codes = {
+  success: boolean
+  symbols?: {
+    [key: string]: string
+  }
+}
+
+type Ratio =  {
+    base: string
+    date: string
+    rates: { 
+      [key: string]: number
+    }
+    success: boolean
+    timestamp: number
+  
+}
 
 class Api {
   _baseURL: string
@@ -9,22 +27,41 @@ class Api {
     this._apikey = key;
   }
 
-  getResource(url: string): Promise<Response> {
+  getCodes(): Promise<Codes> {
 
-    const newProm = fetch(`${this._baseURL}${url}`, {
+    return fetch(`${this._baseURL}/symbols`, {
       method: 'GET',
       headers: {
         "apikey": this._apikey,
         "Content-Type": "application/json",
       },
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`unable to load currency codes \nStatus: ${res.status}`);
     });
 
-    return newProm;
+  }
+
+  getRatio(src: string): Promise<Ratio> {
+
+    return fetch(`${this._baseURL}/latest?base=${src}`, {
+      method: 'GET',
+      headers: {
+        "apikey": this._apikey,
+        "Content-Type": "application/json",
+      },
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`unable to load data \nStatus: ${res.status}`);
+    });
   }
 }
 
 const apiURL = "https://api.apilayer.com/fixer";
-
 const ApiService = new Api(apiURL, apikey);
 
 export default ApiService;

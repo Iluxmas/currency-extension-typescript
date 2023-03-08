@@ -1,12 +1,16 @@
-body {
-  width: 20rem;
-}
-h1 {
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+
+.extension__container h1 {
+  color: #232323;
   font-size: 18px;
   font-weight: 700;
   margin-top: 8px;
 }
 .extension__container {
+  color: #232323;
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  font-weight: 400;
   max-width: 340px;
   display: flex;
   flex-direction: column;
@@ -59,22 +63,28 @@ h1 {
 #source__select,
 #target__select {
   width: 76%;
+  background-color: #fff;
+  border: 1px solid #666;
 }
 #currency__select {
   width: 100%;
 }
 
-.pair {
+li.pair {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   margin: 0 auto;
+  margin-bottom: 8px;
 }
 
 .source__amount {
   width: 60px;
   text-align: end;
+  background-color: #fff;
+  border: 1px solid #666;
+  padding: 1px 3px;
 }
 
 .source__amount::-webkit-outer-spin-button,
@@ -82,6 +92,14 @@ h1 {
   -webkit-appearance: none;
   margin: 0;
 }
+.switch__code {
+  margin-left: 6px;
+  background-image: url('../../images/rotate.png');
+}
+.delete__code {
+  background-image: url('../../images/icons8-close-30.png');
+}
+
 .btn_ {
   width: 18px;
   height: 18px;
@@ -107,11 +125,4 @@ button:hover {
   line-height: 16px;
   width: 60px;
   border: 1px solid #ddd;
-}
-.switch__code {
-  margin-left: 6px;
-  background-image: url('./images/rotate.png');
-}
-.delete__code {
-  background-image: url('./images/icons8-close-30.png');
 }

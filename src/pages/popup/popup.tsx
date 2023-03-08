@@ -2,7 +2,7 @@ import React, { useEffect, useState, FC, ReactElement } from 'react';
 import ReactDOM from 'react-dom/client';
 import { PairForm } from './components/pairForm';
 import { PairsList } from './components/pairsList';
-import ApiService from './utils/api';
+import ApiService from '../../utils/api';
 import './popup.css';
 
 type Codes = {
@@ -25,9 +25,9 @@ type Ratio = {
 
 
 const Popup: FC = ():ReactElement => {
-  const [codes, setCodes] = useState<Codes>({});
-  const [pairs, setPairs] = useState<Pairs|[]>([]);
-  const [ratios, setRatios] = useState<Ratio[]>([]);
+  const [codes, setCodes] = useState({});
+  const [pairs, setPairs] = useState<Pairs>([]);
+  const [ratios, setRatios] = useState<Ratio[] | []>([]);
 
   // get currency codes
   useEffect(() => {
@@ -35,11 +35,12 @@ const Popup: FC = ():ReactElement => {
       .get('codesList')
       .then((result) => {
         if (!result.codesList) {
-          ApiService.getResource('/symbols')
-            .then((res) => res.json())
+          ApiService.getCodes()
             .then((data) => {
-              chrome.storage.local.set({ codesList: data.symbols });
-              setCodes(data.symbols);
+              if (data.symbols) {
+                chrome.storage.local.set({ codesList: data.symbols });
+                setCodes(data.symbols);
+              }
             })
             .catch((err) => console.log(err));
         } else {
@@ -74,11 +75,8 @@ const Popup: FC = ():ReactElement => {
 
   function handleAddPair(src: string, trgt:string): void {
     let newPairsData;
-    if (pairs) {
-      newPairsData = [...pairs, [src, trgt]];
-    } else {
-      newPairsData = [[src, trgt]];
-    }
+
+    newPairsData = [...pairs, [src, trgt]];
     setPairs(newPairsData);
 
     chrome.storage.local
@@ -91,10 +89,9 @@ const Popup: FC = ():ReactElement => {
 
   function getNewRate(src: string): void {
     if (!ratios || !ratios.some((item) => item[src] !== undefined)) {
-      ApiService.getResource(`/latest?base=${src}`)
-        .then((res) => res.json())
+      ApiService.getRatio(src)
         .then((data) => {
-          let newRatios;
+          let newRatios: Ratio[];
           if (ratios) {
             newRatios = [...ratios, { [src]: data }];
           } else {
@@ -122,6 +119,6 @@ const Popup: FC = ():ReactElement => {
     </div>
   );
 }
-
-const root = ReactDOM.createRoot(document.getElementById('root')!);
-root.render(<Popup />);
+export {Popup};
+// const root = ReactDOM.createRoot(document.getElementById('root')!);
+// root.render(<Popup />);

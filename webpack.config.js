@@ -5,7 +5,9 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 
 module.exports = {
   entry: {
-    popup: './src/popup.tsx'
+    popup: './src/pages/popup/popup.tsx',
+    content: './src/pages/content/content.tsx',
+    background: './src/pages/background/background.ts'
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -27,17 +29,20 @@ module.exports = {
       type: 'asset/resource',
     }],
   },
-  plugins: [new HtmlWebpackPlugin({
-    template: './src/popup.html',
-    filename: 'popup.html'
-  }), new CopyPlugin({
-    patterns: [
-      { from: "public" },
-      { from: "src/images", to: 'images' },
-    ],
-  }), new MiniCssExtractPlugin({
-    filename: "[name].[contenthash].css",
-  }),
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './src/pages/popup/popup.html',
+      filename: 'popup.html'
+    }),
+    new CopyPlugin({
+      patterns: [
+        { from: "public" },
+        { from: "src/images", to: 'images' },
+      ],
+    }),
+    new MiniCssExtractPlugin({
+      filename: "[name].css",
+    }),
   ],
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
