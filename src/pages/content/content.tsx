@@ -1,25 +1,36 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import root from 'react-shadow';
+
 import './content.css';
 import { Popup } from '../popup/popup';
 
-function toggle(): void {
-  const root = document.getElementById('curr-exchange-root');
+chrome.runtime.sendMessage({ text: 'request_ext_status' });
 
-  if (root) {
-    root.remove();
-  } else {
+const Injection = () => (
+  <root.div>
+    <Popup />
+  </root.div>
+);
+
+function toggleExtensionDisplay(flag: boolean): void {
+  if (flag) {
     const app = document.createElement('div');
     app.id = 'curr-exchange-root';
     document.body.appendChild(app);
 
     const root = ReactDOM.createRoot(document.getElementById('curr-exchange-root')!);
-    root.render(<Popup />);
+    root.render(<Injection />);
+  } else {
+    const root = document.getElementById('curr-exchange-root')!;
+    root.remove();
   }
 }
 
-chrome.runtime.onMessage.addListener(function receivefunc(message: any, sender: any, sendResponse: any) {
-  if (message.text === 'show__ext') {
-    toggle();
+chrome.runtime.onMessage.addListener(function receivefunc(message: any, sender, sendResponse) {
+  if (message.text === 'show_ext') {
+    toggleExtensionDisplay(true);
+  } else if (message.text === 'hide_ext') {
+    toggleExtensionDisplay(false);
   }
 });

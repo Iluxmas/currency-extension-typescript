@@ -1,12 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
-
+/* 
 .extension__container h1 {
   color: #232323;
   font-size: 18px;
   font-weight: 700;
   margin-top: 8px;
-}
-.extension__container {
+} */
+
+/* //.extension__container {
   color: #232323;
   font-family: 'Montserrat', sans-serif;
   font-style: normal;
@@ -14,14 +15,15 @@
   max-width: 340px;
   display: flex;
   flex-direction: column;
-}
-#pairs__list {
+} */
+
+/* #pairs__list {
   list-style-type: none;
   padding: 0;
   margin: 0;
-}
+} */
 
-#btn__update {
+/* #btn__update {
   width: 30%;
   margin: 6px auto 10px;
 }
@@ -36,71 +38,65 @@
   border-radius: 4px;
   border: 1px solid #ccc;
   outline: none;
-}
+} */
 
-.horizontal__line {
-  width: 100%;
-  height: 1px;
-  background-color: #420168fd;
-  margin: 8px 0;
-}
-.form__container {
+/* .form__container {
   margin-bottom: 10px;
-}
-.select__container {
+} */
+/* .select__container {
   display: flex;
   gap: 10px;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 10px;
-}
-.input__label {
+} */
+/* .input__label {
   width: 20%;
   font-weight: 600;
   font-size: 14px;
   line-height: 14px;
-}
-#source__select,
+} */
+/* #source__select,
 #target__select {
   width: 76%;
   background-color: #fff;
   border: 1px solid #666;
-}
-#currency__select {
+} */
+/* #currency__select {
   width: 100%;
-}
+} */
 
-li.pair {
+/* li.pair {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   margin: 0 auto;
   margin-bottom: 8px;
-}
+} */
 
-.source__amount {
+/* .source__amount {
   width: 60px;
   text-align: end;
   background-color: #fff;
   border: 1px solid #666;
   padding: 1px 3px;
-}
+} */
 
 .source__amount::-webkit-outer-spin-button,
 .source__amount::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-.switch__code {
+/* .switch__code {
   margin-left: 6px;
   background-image: url('../../images/rotate.png');
 }
 .delete__code {
   background-image: url('../../images/icons8-close-30.png');
-}
+} */
 
-.btn_ {
+/* .btn_ {
   width: 18px;
   height: 18px;
   background-size: 90%;
@@ -108,12 +104,12 @@ li.pair {
   background-position: center;
   padding: 3px;
   border: 1px solid #ccc;
-}
-button:hover {
+} */
+/* button:hover {
   cursor: pointer;
   background-color: #ddd;
-}
-.curr__code {
+} */
+/* .curr__code {
   display: inline-block;
   font-weight: 600;
   font-size: 14px;
@@ -125,4 +121,4 @@ button:hover {
   line-height: 16px;
   width: 60px;
   border: 1px solid #ddd;
-}
+} */
