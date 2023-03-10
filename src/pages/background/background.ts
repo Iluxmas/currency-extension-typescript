@@ -1,17 +1,6 @@
 import React from 'react';
 import { ApiService } from '../../utils/api';
-
-type Ratio = {
-  [key: string]: {
-    base: string;
-    date: string;
-    rates: {
-      [key: string]: number;
-    };
-    success: boolean;
-    timestamp: number;
-  };
-};
+import { MessageType, TAllMessage, TRatio } from '../../types/types';
 
 chrome.runtime.onInstalled.addListener(function () {
   chrome.storage.local.set({ showstatus: false });
@@ -38,20 +27,13 @@ function getInitialStatus() {
   });
 }
 
-function getCurrencyRate(src: string, sendResponse: (response?: any) => void): void {
+function getCurrencyRate(currencyName: string, ratiosArray: TRatio[], sendResponse: (response?: any) => void): void {
   console.log('getting currency rates');
-  ApiService.getRatio(src)
+  ApiService.getRatio(currencyName)
     .then((data) => {
-      chrome.storage.local.get('ratios').then((result) => {
-        let newRatios: Ratio[];
-        if (result.ratios) {
-          newRatios = [...result.ratios, { [src]: data }];
-        } else {
-          newRatios = [{ [src]: data }];
-        }
-        sendResponse({ ratios: [...newRatios] });
-        chrome.storage.local.set({ ratios: [...newRatios] });
-      });
+      let newRatios: TRatio[] = [...ratiosArray, { [currencyName]: data }];
+      sendResponse({ ratios: [...newRatios] });
+      chrome.storage.local.set({ ratios: [...newRatios] });
     })
     .catch((err) => console.log(err));
 }
@@ -77,13 +59,33 @@ function handleClick(tab: chrome.tabs.Tab) {
   });
 }
 
-function handleMessage(message: any, sender: chrome.runtime.MessageSender, sendResponse: (response?: any) => void) {
+function handleMessage(
+  message: TAllMessage,
+  sender: chrome.runtime.MessageSender,
+  sendResponse: (response?: any) => void
+) {
   console.log(`message received:\n`);
   console.log(message);
 
-  if (message.text === 'request_ext_status') getInitialStatus();
-  else if (message.method === 'getRate') getCurrencyRate(message.value, sendResponse);
-  else if (message.method === 'getCodes') getCurrencyCodes(sendResponse);
+  switch (message.type) {
+    case MessageType.getRate:
+      chrome.storage.local.get('ratios').then((result) => {
+        if (!result.ratios) {
+          getCurrencyRate(message.value, [], sendResponse);
+        } else if (result.ratios && !result.ratios.some((item: TRatio) => item[message.value] !== undefined)) {
+          getCurrencyRate(message.value, result.ratios, sendResponse);
+        }
+      });
+      break;
+    case MessageType.getCodes:
+      getCurrencyCodes(sendResponse);
+      break;
+    case MessageType.getStatus:
+      getInitialStatus();
+      break;
+    default:
+      return;
+  }
 
   return true;
 }

@@ -3,9 +3,10 @@ import ReactDOM from 'react-dom/client';
 import root from 'react-shadow';
 
 import './content.css';
+import { MessageType } from '../../types/types';
 import { Popup } from '../popup/popup';
 
-chrome.runtime.sendMessage({ text: 'request_ext_status' });
+chrome.runtime.sendMessage({ type: MessageType.getStatus });
 
 const Injection = () => (
   <root.div>
