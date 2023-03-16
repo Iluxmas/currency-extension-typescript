@@ -1,4 +1,4 @@
-import React, { useEffect, FC, ReactElement } from 'react';
+import React, { useEffect, FC, ReactElement, useCallback } from 'react';
 // import ReactDOM from 'react-dom/client';
 import { PairForm } from './components/pairForm';
 import { PairsList } from './components/pairsList';
@@ -11,6 +11,12 @@ const Popup: FC = (): ReactElement => {
   const [pairs, setPairs] = usePersistentState<TPairs>([], 'pairs');
   const [ratios, setRatios] = usePersistentState<TRatio[] | []>([], 'ratios');
 
+  const getNewRate = useCallback((sourceCurrency: string): void => {
+    chrome.runtime.sendMessage({ type: MessageType.getRate, value: sourceCurrency }, function (response) {
+      setRatios(response.ratios);
+    });
+  }, []);
+
   // get currency codes
   useEffect(() => {
     if (codes && Object.keys(codes).length === 0) {
@@ -21,8 +27,13 @@ const Popup: FC = (): ReactElement => {
   }, []);
 
   useEffect(() => {
+    const keys = ratios.map((ratio) => Object.keys(ratio)[0]);
+    console.log('0031');
+    console.log(keys);
     for (let i = 0; i < pairs.length; i++) {
-      getNewRate(pairs[i][0]);
+      if (keys.indexOf(pairs[i][0]) < 0) {
+        getNewRate(pairs[i][0]);
+      }
     }
   }, [pairs]);
 
@@ -31,20 +42,21 @@ const Popup: FC = (): ReactElement => {
     setPairs(newPairsData);
   };
 
-  const getNewRate = (sourceCurrency: string): void => {
-    chrome.runtime.sendMessage({ type: MessageType.getRate, value: sourceCurrency }, function (response) {
-      setRatios(response.ratios);
-    });
-  };
-
   const handleDeletePair = (sourceCurrency: string, targetCurrency: string): void => {
     const newPairs = pairs.filter((item) => !(item[0] === sourceCurrency && item[1] === targetCurrency));
     setPairs(newPairs);
   };
 
+  const handleUpdate = () => {
+    chrome.runtime.sendMessage({ type: MessageType.updateRates }, function (response) {
+      console.log(response);
+      // setRatios(response.ratios);
+    });
+  };
+
   return (
     <div style={styles.extension__container} className="extension__container">
-      <PairsList pairsData={pairs} rates={ratios} onDelete={handleDeletePair} />
+      <PairsList pairsData={pairs} rates={ratios} onDelete={handleDeletePair} onUpdate={handleUpdate} />
       <PairForm codes={codes} onAdd={handleAddPair} />
     </div>
   );

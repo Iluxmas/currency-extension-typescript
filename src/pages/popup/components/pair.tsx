@@ -40,7 +40,7 @@ const Pair: FC<PairProps> = ({ source, target, rates, onDelete }): ReactElement 
     <li style={styles.pair}>
       <input
         style={styles.source__amount}
-        type='number'
+        type="number"
         value={amount}
         min={0}
         max={99999}
@@ -87,7 +87,7 @@ const styles: any = {
   },
   delete__code: {
     backgroundColor: 'transparent',
-    backgroundImage: "url('../../../images/icons8-close-30.png')",
+    // backgroundImage: "url('../../../images/icons8-close-30.png')",
     width: '18px',
     height: '18px',
     backgroundSize: '90%',
@@ -106,7 +106,7 @@ const styles: any = {
   switch__code: {
     marginLeft: '6px',
     backgroundColor: 'transparent',
-    backgroundImage: "url('../../../images/rotate.png')",
+    // backgroundImage: "url('../../../images/rotate.png')",
     width: '18px',
     height: '18px',
     backgroundSize: '90%',

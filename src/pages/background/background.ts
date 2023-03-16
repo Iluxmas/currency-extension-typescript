@@ -27,12 +27,13 @@ function getInitialStatus() {
   });
 }
 
-function getCurrencyRate(currencyName: string, ratiosArray: TRatio[], sendResponse: (response?: any) => void): void {
+function getCurrencyRate(currencyName: string, ratiosArray: TRatio[], sendResponse?: (response?: any) => void): void {
   console.log('getting currency rates');
   ApiService.getRatio(currencyName)
     .then((data) => {
       let newRatios: TRatio[] = [...ratiosArray, { [currencyName]: data }];
-      sendResponse({ ratios: [...newRatios] });
+      if (sendResponse) sendResponse({ ratios: [...newRatios] });
+
       chrome.storage.local.set({ ratios: [...newRatios] });
     })
     .catch((err) => console.log(err));
@@ -77,11 +78,28 @@ function handleMessage(
         }
       });
       break;
+
     case MessageType.getCodes:
       getCurrencyCodes(sendResponse);
       break;
+
     case MessageType.getStatus:
       getInitialStatus();
+      break;
+
+    case MessageType.updateRates:
+      chrome.storage.local.get('ratios').then((result) => {
+        if (!result.ratios) {
+          return;
+        } else {
+          const keysArray = result.ratios.map((obj: TRatio) => Object.keys(obj)[0]);
+          const uniqueKeys = new Set(keysArray);
+          const unique: any = [...uniqueKeys];
+          const resultArr: TRatio[] = [];
+          unique.forEach((sourceCurrency: string) => getCurrencyRate(sourceCurrency, resultArr));
+          sendResponse(resultArr);
+        }
+      });
       break;
     default:
       return;

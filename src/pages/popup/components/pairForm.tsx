@@ -30,10 +30,10 @@ const PairForm: FC<PairFormProps> = ({ codes, onAdd }): ReactElement => {
     <div style={styles.form__container}>
       <h1 style={styles.header}>Add new pair</h1>
       <div style={styles.select__container}>
-        <label htmlFor='source' style={styles.input__label}>
+        <label htmlFor="source" style={styles.input__label}>
           Source
         </label>
-        <select name='source' style={styles.select} value={source} onChange={({ target }) => setSource(target.value)}>
+        <select name="source" style={styles.select} value={source} onChange={({ target }) => setSource(target.value)}>
           {!!data &&
             data.map(([code, name]) => (
               <option key={code + name.slice(0, 10)} value={code} style={styles.option__item}>
@@ -43,10 +43,10 @@ const PairForm: FC<PairFormProps> = ({ codes, onAdd }): ReactElement => {
         </select>
       </div>
       <div style={styles.select__container}>
-        <label htmlFor='target' style={styles.input__label}>
+        <label htmlFor="target" style={styles.input__label}>
           Target
         </label>
-        <select name='target' style={styles.select} value={target} onChange={({ target }) => setTarget(target.value)}>
+        <select name="target" style={styles.select} value={target} onChange={({ target }) => setTarget(target.value)}>
           {!!data &&
             data.map(([code, name]) => (
               <option key={code + name.slice(0, 10)} value={code} style={styles.option__item}>

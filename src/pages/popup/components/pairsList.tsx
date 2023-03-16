@@ -1,23 +1,14 @@
 import React, { ReactElement, FC } from 'react';
 import { Pair } from './pair';
-
+import { TRatio } from '../../../types/types';
 type PairListProps = {
-  rates: {
-    [key: string]: {
-      base: string;
-      date: string;
-      rates: {
-        [key: string]: number;
-      };
-      success: boolean;
-      timestamp: number;
-    };
-  }[];
+  rates: TRatio[];
   pairsData: string[][];
   onDelete: (arg1: string, arg2: string) => void;
+  onUpdate: () => void;
 };
 
-const PairsList: FC<PairListProps> = ({ rates, pairsData, onDelete }): ReactElement => {
+const PairsList: FC<PairListProps> = ({ rates, pairsData, onDelete, onUpdate }): ReactElement => {
   return (
     <div>
       <h1 style={styles.header}>Existing pairs</h1>
@@ -27,7 +18,9 @@ const PairsList: FC<PairListProps> = ({ rates, pairsData, onDelete }): ReactElem
             return <Pair source={src} target={trgt} key={src + trgt} rates={rates} onDelete={onDelete} />;
           })}
       </ul>
-      <button style={styles.btn__update}>Update rates</button>
+      <button onClick={onUpdate} style={styles.btn__update}>
+        Update rates
+      </button>
     </div>
   );
 };
@@ -53,6 +46,11 @@ const styles: any = {
     outline: 'none',
     color: '#252525',
     backgroundColor: '#ddd',
+    ':hover': {
+      cursor: 'pointer',
+      backgroundColor: '#ddd',
+      opacity: 0.9,
+    },
   },
 };
 
