@@ -57,7 +57,9 @@ class Api {
   }
 }
 
-const apiURL = 'https://api.apilayer.com/fixer';
+// const apiURL = 'https://api.apilayer.com/fixer';
+const apiURL = 'https://api.apilayer.com/exchangerates_data';
+
 const ApiService = new Api(apiURL, apikey);
 
 export { ApiService };
