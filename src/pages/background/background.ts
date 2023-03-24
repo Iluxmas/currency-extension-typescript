@@ -1,4 +1,3 @@
-import React from 'react';
 import { ApiService } from '../../utils/api';
 import { MessageType, TAllMessage, TRatio } from '../../types/types';
 

@@ -1,5 +1,6 @@
 import React, { useEffect, FC, ReactElement, useCallback } from 'react';
-// import ReactDOM from 'react-dom/client';
+import styled from 'styled-components';
+
 import { PairForm } from './components/pairForm';
 import { PairsList } from './components/pairsList';
 import { MessageType, TRatio, TPairs } from '../../types/types';
@@ -55,25 +56,21 @@ const Popup: FC = (): ReactElement => {
   };
 
   return (
-    <div style={styles.extension__container} className="extension__container">
+    <Container>
       <PairsList pairsData={pairs} rates={ratios} onDelete={handleDeletePair} onUpdate={handleUpdate} />
       <PairForm codes={codes} onAdd={handleAddPair} />
-    </div>
+    </Container>
   );
 };
 
-const styles: any = {
-  extension__container: {
-    color: '#232323',
-    fontFamily: "'Montserrat', sans-serif",
-    fontStyle: 'normal',
-    fontWeight: 400,
-    maxWidth: '340px',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-};
+const Container = styled.div`
+  color: #232323;
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  max-width: 340px;
+  display: flex;
+  flex-direction: column;
+`;
 
 export { Popup };
-// const root = ReactDOM.createRoot(document.getElementById('root')!);
-// root.render(<Popup />);
