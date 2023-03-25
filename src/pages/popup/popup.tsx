@@ -1,11 +1,11 @@
 import React, { useEffect, FC, ReactElement, useCallback } from 'react';
-import styled from 'styled-components';
+import ReactDOM from 'react-dom/client';
 
+import styled from 'styled-components';
 import { PairForm } from './components/pairForm';
 import { PairsList } from './components/pairsList';
 import { MessageType, TRatio, TPairs } from '../../types/types';
 import { usePersistentState } from '../../hooks/usePersistentState';
-import './popup.css';
 
 const Popup: FC = (): ReactElement => {
   const [codes, setCodes] = usePersistentState({}, 'codesList');
@@ -74,3 +74,6 @@ const Container = styled.div`
 `;
 
 export { Popup };
+
+const root = ReactDOM.createRoot(document.getElementById('root')!);
+root.render(<Popup />);

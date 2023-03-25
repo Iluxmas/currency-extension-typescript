@@ -72,11 +72,11 @@ const Input = styled.input`
   background-color: #fff;
   border: 1px solid #666;
   padding: 1px 3px;
-  input::webkit-inner-spin-button: {
+  &::webkit-inner-spin-button: {
     -webkit-appearance: none;
     margin: 0;
   }
-  input::webkit-outer-spin-button: {
+  &::webkit-outer-spin-button: {
     -webkit-appearance: none;
     margin: 0;
   }
@@ -93,7 +93,7 @@ const ActionButton = styled.button`
   font-weight: 700;
   padding: 2px;
   border: 1px solid #ccc;
-  button:hover: {
+  &:hover: {
     cursor: pointer;
     background-color: #ddd;
   },

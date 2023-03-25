@@ -2,7 +2,8 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
-
+const createStyledComponentsTransformer = require('typescript-plugin-styled-components').default;
+const styledComponentsTransformer = createStyledComponentsTransformer();
 module.exports = {
   entry: {
     popup: './src/pages/popup/popup.tsx',
@@ -17,8 +18,13 @@ module.exports = {
   module: {
     rules: [{
       test: /\.tsx?$/,
-      use: 'ts-loader',
       exclude: /node_modules/,
+      use: {
+        loader: 'ts-loader',
+        options: {
+          getCustomTransformers: () => ({ before: [styledComponentsTransformer] })
+        },
+      },
     },
     {
       test: /\.css$/i,

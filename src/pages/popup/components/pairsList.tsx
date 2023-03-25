@@ -47,7 +47,7 @@ const UpdateButton = styled.button`
   outline: none;
   color: #252525;
   background-color: #ddd;
-  button:hover: {
+  &:hover: {
     cursor: pointer;
     background-color: #ddd;
     opacity: 0.9;
