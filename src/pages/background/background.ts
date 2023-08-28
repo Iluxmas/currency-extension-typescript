@@ -2,29 +2,10 @@ import { ApiService } from '../../utils/api';
 import { MessageType, TAllMessage, TRatio } from '../../types/types';
 
 chrome.runtime.onInstalled.addListener(function () {
-  chrome.storage.local.set({ showstatus: false });
   getCurrencyCodes();
 });
 
-chrome.action.onClicked.addListener(handleClick);
-
 chrome.runtime.onMessage.addListener(handleMessage);
-
-chrome.storage.onChanged.addListener(handleStorageChange);
-
-function getInitialStatus() {
-  console.log('getting initial ext status');
-  chrome.storage.local.get('showstatus').then((res) => {
-    if (res.showstatus) {
-      chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-        const currTab = tabs[0];
-        if (currTab) {
-          chrome.tabs.sendMessage(currTab.id!, { text: 'show_ext' });
-        }
-      });
-    }
-  });
-}
 
 function getCurrencyRate(currencyName: string, ratiosArray: TRatio[], sendResponse?: (response?: any) => void): void {
   console.log('getting currency rates');
@@ -52,13 +33,6 @@ function getCurrencyCodes(sendResponse?: (response?: any) => void) {
     .catch((err) => console.log(err));
 }
 
-function handleClick(tab: chrome.tabs.Tab) {
-  console.log('extension clicked');
-  chrome.storage.local.get('showstatus').then((res) => {
-    chrome.storage.local.set({ showstatus: !res.showstatus });
-  });
-}
-
 function handleMessage(
   message: TAllMessage,
   sender: chrome.runtime.MessageSender,
@@ -82,10 +56,6 @@ function handleMessage(
       getCurrencyCodes(sendResponse);
       break;
 
-    case MessageType.getStatus:
-      getInitialStatus();
-      break;
-
     case MessageType.updateRates:
       chrome.storage.local.get('ratios').then((result) => {
         if (!result.ratios) {
@@ -107,15 +77,3 @@ function handleMessage(
   return true;
 }
 
-function handleStorageChange(changes: { [key: string]: chrome.storage.StorageChange }) {
-  console.log('storage change handle');
-  if (changes.showstatus) {
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-      const currTab = tabs[0];
-      if (currTab) {
-        chrome.tabs.sendMessage(currTab.id!, { text: changes.showstatus.newValue ? 'show_ext' : 'hide_ext' });
-      }
-    });
-  }
-  return true;
-}

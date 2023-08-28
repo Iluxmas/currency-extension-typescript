@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ReactElement, FC } from 'react';
+import { useState, useEffect, ReactElement, FC } from 'react';
 import styled from 'styled-components';
 
 type PairProps = {

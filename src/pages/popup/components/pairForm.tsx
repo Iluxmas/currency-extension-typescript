@@ -59,12 +59,14 @@ const PairForm: FC<PairFormProps> = ({ codes, onAdd }): ReactElement => {
 
 const FormContainer = styled.div`
   margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
 `;
 const Header = styled.h1`
   color: #232323;
   font-size: 18px;
   font-weight: 700;
-  margin-top: 8px;
+  margin-top: 0;
 `;
 const SelectContainer = styled.div`
   display: flex;
@@ -86,7 +88,7 @@ const Select = styled.select`
   border: 1px solid #666;
 `;
 const AddButton = styled.button`
-  margin: 0 auto;
+  margin: 8px 0 0 auto;
   padding: 4px 8px;
   border-radius: 4px;
   border: 1px solid #ccc;

@@ -1,4 +1,4 @@
-import React, { useEffect, FC, ReactElement, useCallback } from 'react';
+import { useEffect, FC, ReactElement, useCallback } from 'react';
 import ReactDOM from 'react-dom/client';
 
 import styled from 'styled-components';
@@ -21,16 +21,15 @@ const Popup: FC = (): ReactElement => {
   // get currency codes
   useEffect(() => {
     if (codes && Object.keys(codes).length === 0) {
-      chrome.runtime.sendMessage({ type: MessageType.getCodes }, function (response) {
-        setCodes(response.codesList);
-      });
+      // chrome.runtime.sendMessage({ type: MessageType.getCodes }, function (response) {
+      //   setCodes(response.codesList);
+      // });
     }
   }, []);
 
   useEffect(() => {
     const keys = ratios.map((ratio) => Object.keys(ratio)[0]);
-    console.log('0031');
-    console.log(keys);
+
     for (let i = 0; i < pairs.length; i++) {
       if (keys.indexOf(pairs[i][0]) < 0) {
         getNewRate(pairs[i][0]);
@@ -51,7 +50,6 @@ const Popup: FC = (): ReactElement => {
   const handleUpdate = () => {
     chrome.runtime.sendMessage({ type: MessageType.updateRates }, function (response) {
       console.log(response);
-      // setRatios(response.ratios);
     });
   };
 
@@ -68,6 +66,7 @@ const Container = styled.div`
   font-family: 'Montserrat', sans-serif;
   font-style: normal;
   font-weight: 400;
+  width: 340px;
   max-width: 340px;
   display: flex;
   flex-direction: column;

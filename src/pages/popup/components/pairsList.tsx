@@ -1,4 +1,4 @@
-import React, { ReactElement, FC } from 'react';
+import { ReactElement, FC } from 'react';
 import styled from 'styled-components';
 
 import { Pair } from './pair';
@@ -12,7 +12,7 @@ type PairListProps = {
 
 const PairsList: FC<PairListProps> = ({ rates, pairsData, onDelete, onUpdate }): ReactElement => {
   return (
-    <div>
+    <Container>
       <Header>Existing pairs</Header>
       <PiarsList>
         {!!pairsData.length &&
@@ -21,9 +21,14 @@ const PairsList: FC<PairListProps> = ({ rates, pairsData, onDelete, onUpdate }):
           })}
       </PiarsList>
       <UpdateButton onClick={onUpdate}>Update rates</UpdateButton>
-    </div>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 const Header = styled.h1`
   color: #232323;
@@ -39,8 +44,9 @@ const PiarsList = styled.ul`
 `;
 
 const UpdateButton = styled.button`
-  width: 30%;
-  margin: 6px auto 10px;
+  width: 40%;
+  margin: 8px 0 8px auto;
+  margin-left: auto;
   padding: 4px 8px;
   border-radius: 4px;
   border: 1px solid #ccc;

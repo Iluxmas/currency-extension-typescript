@@ -3,7 +3,7 @@ interface IMessage {
 }
 
 interface IMessageOther {
-  type: MessageType.getCodes | MessageType.getStatus | MessageType.updateRates;
+  type: MessageType.getCodes | MessageType.updateRates;
 }
 
 interface IMessageGetCurrency extends IMessage {
@@ -16,7 +16,6 @@ export type TAllMessage = IMessageGetCurrency | IMessageOther;
 export enum MessageType {
   getRate = 'getRate',
   getCodes = 'getCodes',
-  getStatus = 'getStatus',
   updateRates = 'updateRates',
 }
 

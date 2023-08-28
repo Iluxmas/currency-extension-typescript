@@ -1,10 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import styled, { StyleSheetManager } from 'styled-components';
+import styled from 'styled-components';
 import { MessageType } from '../../types/types';
 import { Popup } from '../popup/popup';
-
-chrome.runtime.sendMessage({ type: MessageType.getStatus });
 
 const ExtensionContainer = styled.div`
   @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
@@ -16,14 +14,6 @@ const ExtensionContainer = styled.div`
   left: 20px;
   z-index: 100000;
 `;
-
-// const Injection = () => (
-// <StyleSheetManager>
-//   <ExtensionContainer>
-//     <Popup />
-//   </ExtensionContainer>
-// </StyleSheetManager>
-// );
 
 function toggleExtensionDisplay(flag: boolean): void {
   if (flag) {
