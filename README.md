@@ -10,6 +10,10 @@ Features:
 - Switching pairs
 - Update all ratios
 
+Preview
+
+![Demo1](https://github.com/Iluxmas/sumplete/blob/main/public/demo1.gif)
+
 ## Install
 
 To install necessary libraries:
@@ -29,4 +33,4 @@ To load unpacked extension to Chrome follow guide [developer.chrome.com/docs/ext
 **Things to improve**:
 
 - [x] "Update rate" button to get fresh ratios (requests to API are limited to 100 per month)
-- [ ] Add Styled components
+- [x] Add Styled components
