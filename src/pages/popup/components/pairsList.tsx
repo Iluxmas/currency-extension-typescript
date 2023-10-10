@@ -1,8 +1,8 @@
 import { ReactElement, FC } from 'react';
 import styled from 'styled-components';
-
 import { Pair } from './pair';
 import { TRatio } from '../../../types/types';
+
 type PairListProps = {
   rates: TRatio[];
   pairsData: string[][];
@@ -14,12 +14,12 @@ const PairsList: FC<PairListProps> = ({ rates, pairsData, onDelete, onUpdate }):
   return (
     <Container>
       <Header>Existing pairs</Header>
-      <PiarsList>
+      <PairsContainer>
         {!!pairsData.length &&
           pairsData.map(([src, trgt]) => {
             return <Pair source={src} target={trgt} key={src + trgt} rates={rates} onDelete={onDelete} />;
           })}
-      </PiarsList>
+      </PairsContainer>
       <UpdateButton onClick={onUpdate}>Update rates</UpdateButton>
     </Container>
   );
@@ -37,7 +37,7 @@ const Header = styled.h1`
   margin-top: 8px;
 `;
 
-const PiarsList = styled.ul`
+const PairsContainer = styled.ul`
   list-style-type: none;
   padding: 0;
   margin: 0;

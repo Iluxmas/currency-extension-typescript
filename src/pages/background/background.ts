@@ -62,11 +62,10 @@ function handleMessage(
           return;
         } else {
           const keysArray = result.ratios.map((obj: TRatio) => Object.keys(obj)[0]);
-          const uniqueKeys = new Set(keysArray);
-          const unique: any = [...uniqueKeys];
+          const unique: any = [...new Set(keysArray)];
           const resultArr: TRatio[] = [];
-          unique.forEach((sourceCurrency: string) => getCurrencyRate(sourceCurrency, resultArr));
-          sendResponse(resultArr);
+          
+          Promise.all(unique.map((sourceCurrency: string) => getCurrencyRate(sourceCurrency, resultArr))).then(() => sendResponse(resultArr));
         }
       });
       break;
