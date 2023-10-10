@@ -9,10 +9,11 @@ Features:
 - Converting values
 - Switching pairs
 - Update all ratios
+- Data stored in chrome storage
 
 Preview
 
-![Demo1](https://github.com/Iluxmas/sumplete/blob/main/public/demo1.gif)
+![Demo1](https://github.com/Iluxmas/currency-extension-typescript/blob/main/public/demo1.gif)
 
 ## Install
 
