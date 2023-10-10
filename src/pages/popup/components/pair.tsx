@@ -1,5 +1,6 @@
 import { useState, useEffect, ReactElement, FC } from 'react';
 import styled from 'styled-components';
+import LoadingSpinner from './loadingSpinner';
 
 type PairProps = {
   source: string;
@@ -48,7 +49,7 @@ const Pair: FC<PairProps> = ({ source, target, rates, onDelete }): ReactElement 
       />
       <CurrencySpan>{isSwitched ? target : source}</CurrencySpan>
       <span>=</span>
-      <ResultValue>{(amount * (isSwitched ? 1 / ratio : ratio)).toFixed(2)}</ResultValue>
+      <ResultValue>{ratio ? (amount * (isSwitched ? 1 / ratio : ratio)).toFixed(2) : <LoadingSpinner />}</ResultValue>
       <CurrencySpan>{isSwitched ? source : target}</CurrencySpan>
       <SwitchButton onClick={() => setIsSwitched(!isSwitched)}>&#8644;</SwitchButton>
       <DeleteButton onClick={() => onDelete(source, target)}>&#10005;</DeleteButton>
